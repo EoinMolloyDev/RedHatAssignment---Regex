@@ -4,6 +4,9 @@ import re
 import sys
 
 #No use of Machine argument or STDIN input - unsure of the required implementation
+#Start position is not included in the output, unsure of which value its looking for.
+#Design Structure I choose to use was Strategy 
+# It is a behavioral design pattern that turns a set of behaviors into objects and makes them interchangeable inside original context object.
 
 def main():
     # Parse the command line arguments
@@ -43,7 +46,8 @@ def search_in_file(file_name, regex, formatter):
     except Exception as e:
         print(f"Error processing file '{file_name}': {e}")
 
-#Class that handles the output formatting - must be implemented by subclasses
+# Class that handles the output formatting - must be implemented by subclasses
+# https://docs.python.org/3/library/abc.html - Abstract Base Classes
 class OutputFormatter:
     @abstractmethod
     def format(file_name, line_num, line, matches):
@@ -51,10 +55,16 @@ class OutputFormatter:
 
 class UnderscoreFormatter(OutputFormatter):
     def format(self, file_name, line_num, line, matches):
-        print(f"{file_name}:{line_num}")
-        underline = [' '] * len(line)
+        prefix = f"{file_name}:{line_num}:"
+        print(f"{prefix}{line.strip()}")
+        
+        underline = [' '] * (len(prefix) + len(line.strip()))
+        
         for match in matches:
-            for i in range(match.start(), match.end()):
+            # Adjust to account for the prefix length
+            start = match.start() + len(prefix)
+            end = match.end() + len(prefix)
+            for i in range(start, end):
                 underline[i] = '^'
         print(''.join(underline))
         
