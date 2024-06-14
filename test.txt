@@ -1,0 +1,13 @@
+This is a simple text file for regex practice.
+Regex is very useful for searching and manipulating text.
+You can use various patterns to match specific strings.
+Here are some sample lines for testing:
+- Example line with email: test@example.com
+- Another example with a phone number: (123) 456-7890
+- Line with a URL: https://www.example.com
+- A line with mixed numbers and letters: ABC123XYZ
+- Line with special characters: @#&*!$
+Try finding all lines containing the word 'example'.
+Try finding lines with numbers or special characters.
+Practice makes perfect!
+No regex
